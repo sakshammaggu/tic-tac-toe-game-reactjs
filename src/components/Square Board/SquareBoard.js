@@ -2,7 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 
 // passing value as prop
-const SquareBoard = ({value}) => {
+const SquareBoard = ({value, onClick}) => {
     // const [value, setValue]=useState(null);
 
     // const handleClick=()=>{
@@ -10,7 +10,7 @@ const SquareBoard = ({value}) => {
     // }
 
     return (
-        <button className="square">{value}</button>   /* onClick={handleClick} */
+        <button className="square" onClick={onClick}>{value}</button>   /* onClick={handleClick} */
     )
 }
 
