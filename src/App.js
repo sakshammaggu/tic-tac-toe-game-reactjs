@@ -6,8 +6,32 @@ function App() {
   const [squares, setSquares]=useState(Array(9).fill(null));
   const [isXTurnNext, setIsXTurnNext]=useState(true);
 
+  const calculateWinner=()=>{
+    const lines = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6]
+    ];
+  
+    for (let i = 0; i < lines.length; i++) 
+    {
+      const [a, b, c] = lines[i];
+  
+      if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+        return squares[a];
+      }
+    }
+    
+    return null;
+  }
+
   const handleClick=(i)=>{
-    if (squares[i]!=null)
+    if (squares[i]!=null || calculateWinner(squares))
       return;
 
     const nextSquares=squares.slice();
@@ -21,8 +45,18 @@ function App() {
     setIsXTurnNext(!isXTurnNext);
   }
 
+  const winner = calculateWinner(squares);
+  let status;
+  if (winner) {
+    status = "Winner: " + winner;
+  } else {
+    status = "Next player: " + (isXTurnNext ? "X" : "O");
+  }
+
   return (
     <div className="App">
+
+      <div className="status">{status}</div>
 
       <div className="board-row">
         <SquareBoard value={squares[0]} onClick={()=>handleClick(0)}/>
