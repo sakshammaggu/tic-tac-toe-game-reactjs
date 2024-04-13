@@ -4,11 +4,21 @@ import { useState } from 'react';
 
 function App() {
   const [squares, setSquares]=useState(Array(9).fill(null));
+  const [isXTurnNext, setIsXTurnNext]=useState(true);
 
   const handleClick=(i)=>{
+    if (squares[i]!=null)
+      return;
+
     const nextSquares=squares.slice();
-    nextSquares[i]="X";
+    
+    if (isXTurnNext)
+      nextSquares[i]="X";
+    else
+      nextSquares[i]="O";
+
     setSquares(nextSquares);
+    setIsXTurnNext(!isXTurnNext);
   }
 
   return (
